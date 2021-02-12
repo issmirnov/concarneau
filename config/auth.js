@@ -4,24 +4,24 @@
 module.exports = {
 
 	'facebookAuth' : {
-		'clientID' 		: '1388988078028764', // your App ID
+        'clientID' 		: process.env.FACEBOOK_CLIENT_ID, // your App ID
 		'clientSecret' 	: process.env.FACEBOOK_SECRET, // your App Secret
-		'callbackURL' 	: process.env.FACEBOOK_CALLBACK || 'http://localhost:' + (process.env.PORT || 8080) + '/auth/facebook/callback'
+		'callbackURL' 	: process.env.FACEBOOK_CALLBACK || process.env.HOST + ':' + (process.env.PORT || 8080) + '/auth/facebook/callback'
 	},
 
 	'twitterAuth' : {
-		'consumerKey' 		: '0P6wn4IB9MQSSt5eaF3eDxj1v',
+		'consumerKey' 		: process.env.TWITTER_CONSUMER_KEY,
 		'consumerSecret' 	: process.env.TWITTER_SECRET,
-		'accessToken'       : '2532814112-Ze8L0AZJ71j9roiGuBJ6KJP2jYx35mGuacpbe3P',
+		'accessToken'       : process.env.TWITTER_ACCESS_TOKEN,
 		'accessTokenSecret' : process.env.TWITTER_ACCESS_SECRET,
-		'callbackURL' 		: process.env.TWITTER_CALLBACK || 'http://localhost:' + (process.env.PORT || 8080) + '/auth/twitter/callback'
+        'callbackURL' 		: process.env.TWITTER_CALLBACK || process.env.HOST + ':' + (process.env.PORT || 8080) + '/auth/twitter/callback'
 	},
 
 	'googleAuth' : {
-		'clientID' 		: '859053446273-1e5ln4ca5gco80tl88a0kefj35id3eik.apps.googleusercontent.com',
+		'clientID' 		: process.env.GOOGLE_CLIENT_ID,
 		'clientSecret' 	: process.env.GOOGLE_SECRET,
 		'refreshToken'  : process.env.GOOGLE_REFRESH_TOKEN,
-		'callbackURL' 	: process.env.GOOGLE_CALLBACK || 'http://localhost:' + (process.env.PORT || 8080) + '/auth/google/callback'
+		'callbackURL' 	: process.env.GOOGLE_CALLBACK || process.env.HOST +  ':' + (process.env.PORT || 8080) + '/auth/google/callback'
 	}
 
 };
