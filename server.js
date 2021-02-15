@@ -68,14 +68,14 @@ mongoose.connect(configDB.url); // connect to our database
 require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
-app.use(helmet()); // set HTTP headers via Helmet
+// app.use(helmet()); // set HTTP headers via Helmet
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 if(!process.env.C9_PROJECT) {
 	// redirect to https if the request isn't secured
 	app.set('trust proxy', true);
 	app.use(function(req, res, next) {
-		if(!req.secure) {
+		if(!req.secure && !process.env.DISABLE_SSL) {
 			return res.redirect('https://' + req.get('Host') + req.url);
 		}
 		next();

@@ -13,6 +13,7 @@ services:
         # - MONGO_URI=mongodb://admin:concarneau@mongodb/concarneau_db
       - MONGO_URI=mongodb://mongodb/concarneau_db
 
+      - DISABLE_SSL=1
       # Facebook oAuth credentials
       # - FACEBOOK_CLIENT_ID # Your App Id
       # - FACEBOOK_SECRET # Your App Secret
