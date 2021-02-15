@@ -18,12 +18,20 @@ var User = require('./models/user');
 //TODO: send e-mail on game start not just on turn start (to active player if not current user)
 var userToSocket = {};
 
+if (
+auth.twitterAuth.consumerKey
+    && auth.twitterAuth.consumerSecret
+&& auth.twitterAuth.consumerSecret
+&& auth.twitterAuth.accessTokenSecret
+) {
+
 var twitter = new twit({
 	consumer_key: auth.twitterAuth.consumerKey,
 	consumer_secret: auth.twitterAuth.consumerSecret,
 	access_token: auth.twitterAuth.accessToken,
 	access_token_secret: auth.twitterAuth.accessTokenSecret
 });
+}
 
 module.exports = function(server, sessionStore) {
 	// if the tile db is empty load in the tiles,
@@ -200,7 +208,7 @@ module.exports = function(server, sessionStore) {
 															});
 														}
 														// send twitter notification if we have a valid twitter handle and the user has the option enabled
-														if(activeUser.twitter.username && activeUser.twitter_notifications) {
+														if(activeUser.twitter.username && activeUser.twitter_notifications && twitter) {
 															twitter.post('statuses/update', { status: '@' + activeUser.twitter.username + ' There is a Concarneau game where it is your turn: ' + process.env.SERVER_URL + '?' + Math.floor(Math.random()*1000000) }, function(err) {
 																if(err) {
 																	console.log('twitter failed: ' + err);

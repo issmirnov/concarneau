@@ -1,0 +1,53 @@
+version: '3.4'
+
+services:
+  concarneau:
+    container_name: concarneau
+    image: "issmirnov/concarneau"
+    ports:
+      - 8080:8080
+    environment:
+      # set this to your externally resolvable URL fopr auth callback
+      - HOST=http://localhost
+
+        # - MONGO_URI=mongodb://admin:concarneau@mongodb/concarneau_db
+      - MONGO_URI=mongodb://mongodb/concarneau_db
+
+      # Facebook oAuth credentials
+      # - FACEBOOK_CLIENT_ID # Your App Id
+      # - FACEBOOK_SECRET # Your App Secret
+      # # not required to be set as default is fine. Ovverride here if you need.
+      # # DEFAULTS TO HOST+PORT+${callback_url}
+      # # - FACEBOOK_CALLBACK
+
+      # # Google oAuth credentials
+      # - GOOGLE_CLIENT_ID # Your App Id (xx-yyy.apps.googleusercontent.com)
+      # - GOOGLE_SECRET # Your App Secret
+      # - GOOGLE_REFRESH_TOKEN
+      # # not required to be set as default is fine. Ovverride here if you need.
+      # # DEFAULTS TO HOST+PORT+${callback_url}
+      # # - GOOGLE_CALLBACK
+
+      # # Twitter oAuth credentials
+      # - TWITTER_ACCESS_TOKEN
+      # - TWITTER_ACCESS_SECRET
+      # - TWITTER_CONSUMER_KEY
+      # - TWITTER_SECRET
+      # # not required to be set as default is fine. Ovverride here if you need.
+      # # DEFAULTS TO HOST+PORT+${callback_url}
+      # # - TWITTER_CALLBACK
+
+    restart: unless-stopped
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    environment:
+      # - MONGO_INITDB_ROOT_USERNAME=admin
+      # - MONGO_INITDB_ROOT_PASSWORD=concarneau
+      - MONGO_INITDB_DATABASE=concarneau_db
+      # If support, mask internal user gid/uid to avoid permissions issues.
+      - "PUID=1000"
+      - "PGID=1000"
+    volumes:
+      - './mongo-data:/data/db'
+    restart: unless-stopped

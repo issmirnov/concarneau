@@ -157,6 +157,10 @@ module.exports = function(passport) {
     // =========================================================================
     // FACEBOOK ================================================================
     // =========================================================================
+    if (configAuth.facebookAuth.clientID
+        && configAuth.facebookAuth.clientSecret
+        && configAuth.facebookAuth.callbackURL
+    ){
     passport.use(new FacebookStrategy({
 
         clientID          : configAuth.facebookAuth.clientID,
@@ -238,10 +242,14 @@ module.exports = function(passport) {
         });
 
     }));
+    } else {
+        console.log("Skipping facebook auth due to missing config.")
+    }
 
     // =========================================================================
     // TWITTER =================================================================
     // =========================================================================
+    if (configAuth.twitterAuth.consumerKey && configAuth.twitterAuth.consumerSecret && configAuth.twitterAuth.callbackURL) {
     passport.use(new TwitterStrategy({
 
         consumerKey     : configAuth.twitterAuth.consumerKey,
@@ -313,10 +321,17 @@ module.exports = function(passport) {
         });
 
     }));
+    } else {
+        console.log("Skipping Twitter auth strategy due to missing configuration.")
+    }
 
     // =========================================================================
     // GOOGLE ==================================================================
     // =========================================================================
+    if (configAuth.googleAuth.clientID
+        && configAuth.googleAuth.clientSecret
+        && configAuth.googleAuth.callbackURL
+    ){
     passport.use(new GoogleStrategy({
         clientID          : configAuth.googleAuth.clientID,
         clientSecret      : configAuth.googleAuth.clientSecret,
@@ -389,5 +404,8 @@ module.exports = function(passport) {
         });
 
     }));
+    } else {
+        console.log("Google oAuth disabled due to missing config");    
+    }
 
 };
